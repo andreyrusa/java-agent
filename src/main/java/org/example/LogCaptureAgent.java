@@ -11,6 +11,14 @@ import static net.bytebuddy.matcher.ElementMatchers.named;
 
 public class LogCaptureAgent {
     public static void premain(String agentArgs, Instrumentation inst) {
+        configureAgent(inst);
+    }
+
+    public static void agentmain(String agentArgs, Instrumentation inst) {
+        configureAgent(inst);
+    }
+
+    private static void configureAgent(Instrumentation inst) {
         new AgentBuilder.Default()
                 .type(named("org.slf4j.LoggerFactory"))
                 .transform((builder, typeDescription, classLoader, module) -> builder
